@@ -1,0 +1,15 @@
+sudo: required
+services:
+- docker
+env:
+  matrix:
+  - DOCKER_IMAGE_NAME=totran/bndroid
+  global:
+    secure: dx2LgrdPqc6gr+1F/TB9K1e1vXs+8vxD5L84DNectNZhq/qdGhCvrHRkvxCMINB8sWYuqgSuqqlaABY8fUnVK8cwUqiHnfOSWgRzV/vj5J+I2Fs6MFcG3pG9QWzClWA/omc6/kv/7KrQk1Qw/WZJPwgluPfgH5W4jAuGOMsSLjotrNUatxrldBGGm43WSc+7aVoMGDkMhNpB+6F9kmVw5Ypsyvs/WJnnBeVT7UrwzM9VviQ6/jvqBhGizjguchPpe/xh3mrZKV9AXlRDqmmozH33CTz60vwLEwPJoOjgp0ZYWTN6dXCy4luwV9Tx+PAmXJj7z+Zo72kBkQwNtQMUjapAcKDNOVKKlabP7BwuIeepA1i1sRkHKN8fd4jjBD2LJMexChKNT6VC1/J8V7k99foBVSiH8WwFku3B/YkC4ApR68aJ4zON3nzwz4Yn5Eb00+g02wGM0MlIhO4zDhH4/QQTS8zUW9QaEiQXgT8jPbZ8BufA02IZzkxxxN2w4k7aChAd3NujXmjtK3Zi5RoXPAvf6KXDq9nxMr2kWNm6VBwTvdLgIFg+T2EZbpQ+rVIp7d0Gkm+OxL9+2wDVABS/dv4dA9gqSmxYBxiqjPN/hxktP3q9sXbaRJPWHWFdNJra64zQZ2/Lxc66EpLj1JNOPAsVDDHwh+etiQQi/sZAfPs=
+install:
+- docker login --email=$DOCKER_EMAIL --username=$DOCKER_USER --password=$DOCKER_PASS
+script:
+- docker build -t $DOCKER_IMAGE_NAME .
+- if [ ! -z "$TRAVIS_TAG" ]; then docker tag $DOCKER_IMAGE_NAME:latest $DOCKER_IMAGE_NAME:$TRAVIS_TAG;
+  fi && docker push $DOCKER_IMAGE_NAME
+

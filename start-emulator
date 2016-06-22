@@ -2,12 +2,21 @@
 
 # From https://github.com/ksoichiro/dockerfiles/blob/master/android-emulator/start-emulator
 
-if [ $# -gt 0 ]; then
-  CMD=$1
-  echo "Starting emulator..."
-  emulator64-arm -avd test -no-skin -no-audio -no-window -gpu off &
-  android-wait-for-emulator
-  $CMD
-else
-  echo "No command is specified"
-fi
+while getopts "a:b:" arg
+do
+    case $arg in
+        a) # do after emulator start
+            AFTER_CMD=$OPTARG
+            ;;
+        b) # do before emulator start
+            BEFORE_CMD=$OPTARG
+            ;;
+    esac
+done
+
+echo "Starting emulator..."
+emulator64-arm -avd test -no-skin -no-audio -no-window -gpu off &
+$BEFORE_CMD
+android-wait-for-emulator
+$AFTER_CMD
+

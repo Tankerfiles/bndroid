@@ -14,5 +14,8 @@ RUN echo no | android create avd --force -n test -t "$ANDROID_TARGET" --abi "$AN
 ADD android-wait-for-emulator /usr/local/bin/
 ADD start-emulator /usr/local/bin/
 
-RUN start-emulator
+RUN emulator -camera-front emulated @test
+RUN emulator -camera-back emulated @test
+
+RUN start-emulator 
 

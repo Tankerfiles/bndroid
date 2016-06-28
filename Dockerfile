@@ -1,4 +1,4 @@
-FROM gfx2015/android:latest
+FROM totran/android:latest
 
 MAINTAINER Jingkai Tang <jingkaitang@gmail.com>
 

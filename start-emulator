@@ -15,7 +15,7 @@ do
 done
 
 echo "Starting emulator..."
-emulator64-arm -avd test -camera-front emulated -camera-back emulated -no-skin -no-audio -no-window -gpu off &
+emulator64-arm -avd test -camera-front emulated -camera-back emulated -no-audio -no-window &
 $BEFORE_CMD
 android-wait-for-emulator
 adb shell input keyevent 82

@@ -9,10 +9,8 @@ ENV ANDROID_SYS_IMAGE sys-img-$ANDROID_ABI-$ANDROID_TARGET
 RUN echo y | android update sdk --no-ui --all --filter "$ANDROID_SYS_IMAGE"
 
 # create avd
-RUN echo no | android create avd --force -n test -t "$ANDROID_TARGET" --abi "$ANDROID_ABI"
+RUN echo no | android create avd -f -n test -t "$ANDROID_TARGET" -b "$ANDROID_ABI" -d 9 -s WXGA720 -c 200M
 
 ADD android-wait-for-emulator /usr/local/bin/
 ADD start-emulator /usr/local/bin/
-
-RUN start-emulator 
 
